@@ -10,7 +10,8 @@
 
 .line {
   fill: none;
-  stroke: steelblue;
+  stroke: black;
+  opacity: 0.1;
   stroke-width: 1.5px;
 }
 
@@ -29,7 +30,7 @@ var parseTime = d3.timeParse("%H:%M");
 
 var x = d3.scaleBand().range([0, width]),
     y = d3.scaleLinear().range([height, 0]),
-    z = d3.scaleOrdinal(d3.schemeCategory20c);
+    z = d3.scaleOrdinal();
 
 var line = d3.line()
     .curve(d3.curveBasis)
