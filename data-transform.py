@@ -129,5 +129,5 @@ for line in data:
     for column in line:
         file.write(str(column))
         file.write("\t")
-    file.write("\n")
+    file.write("\b\n")
 file.close()
