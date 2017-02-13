@@ -4,6 +4,8 @@
 # the day, and a column for each day
 
 import sys
+# This is so the script will work on my shared server
+sys.path.append('/usr/home/jreardon/scripts/python-dateutil-2.6.0')
 from datetime import datetime
 from dateutil import tz
 
@@ -87,22 +89,22 @@ if TIME_ROWS:
                 datarow = [str(hour).zfill(2) + ":00"]
                 for day in days:
                     if day != "report_datetime":
-                        datarow.append(0)
+                        datarow.append("0")
             if hourpart == 1:
                 datarow = [str(hour).zfill(2) + ":15"]
                 for day in days:
                     if day != "report_datetime":
-                        datarow.append(0)
+                        datarow.append("0")
             if hourpart == 2:
                 datarow = [str(hour).zfill(2) + ":30"]
                 for day in days:
                     if day != "report_datetime":
-                        datarow.append(0)
+                        datarow.append("0")
             if hourpart == 3:
                 datarow = [str(hour).zfill(2) + ":45"]
                 for day in days:
                     if day != "report_datetime":
-                        datarow.append(0)
+                        datarow.append("0")
             data.append(datarow)
 
 log_data.seek(0,0)
@@ -121,7 +123,7 @@ for line in log_data:
         else:
             row = days.index(date)
             col = data[0].index(time)
-        data[row][col] = int(line.split(",")[2])
+        data[row][col] = line.split(",")[2].strip()
 
 # Write array to a file
 file = open(sys.argv[2], 'w')

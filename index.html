@@ -15,7 +15,14 @@
   stroke-width: 1.5px;
 }
 
+h1 {
+  font-family: sans-serif;
+}
+
 </style>
+
+<h1>Citibikes Available at 7th Ave & Park Place Daily</h1>
+
 <svg width="1500" height="500"></svg>
 <script src="http://d3js.org/d3.v4.min.js"></script>
 <script>
@@ -36,6 +43,17 @@ var line = d3.line()
     .curve(d3.curveBasis)
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.temperature); });
+
+//var tick_values = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00','23:45']
+var tick_values = []
+for (i = 0; i < 24; i++) {
+  if (i.toString().length < 2) {
+    hour = "0" + i
+  } else {
+    hour = i
+  }
+  tick_values.push(hour + ":00")
+}
 
 d3.tsv("output.tsv", type, function(error, data) {
   if (error) throw error;
@@ -62,9 +80,7 @@ d3.tsv("output.tsv", type, function(error, data) {
   g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).ticks(24).tickPadding(10));
-
-      console.log(x)
+      .call(d3.axisBottom(x).tickValues(tick_values));
 
   g.append("g")
       .attr("class", "axis axis--y")
@@ -86,13 +102,13 @@ d3.tsv("output.tsv", type, function(error, data) {
       .attr("d", function(d) { return line(d.values); })
       .style("stroke", function(d) { return z(d.id); });
 
-  city.append("text")
-      .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
-      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
-      .attr("x", 3)
-      .attr("dy", "0.35em")
-      .style("font", "10px sans-serif")
-      .text(function(d) { return d.id; });
+  // city.append("text")
+  //     .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
+  //     .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+  //     .attr("x", 3)
+  //     .attr("dy", "0.35em")
+  //     .style("font", "10px sans-serif")
+  //     .text(function(d) { return d.id; });
 });
 
 function type(d, _, columns) {
