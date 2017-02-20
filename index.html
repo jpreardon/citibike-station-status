@@ -12,7 +12,7 @@
   fill: none;
   stroke: black;
   opacity: 0.1;
-  stroke-width: 1.5px;
+  stroke-width: 15px;
 }
 
 .line:hover {
@@ -44,11 +44,11 @@ var x = d3.scaleBand().range([0, width]),
     z = d3.scaleOrdinal();
 
 var line = d3.line()
+    .defined(function(d) { return d.temperature != null; })
     .curve(d3.curveBasis)
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.temperature); });
 
-//var tick_values = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00','23:45']
 var tick_values = []
 for (i = 0; i < 24; i++) {
   if (i.toString().length < 2) {

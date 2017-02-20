@@ -66,9 +66,9 @@ if TIME_ROWS != True:
                 datarow.append(str(hour).zfill(2) + ":30")
                 datarow.append(str(hour).zfill(2) + ":45")
             else:
-                # Fill the rest of the array with zeros
+                # Fill the rest of the array with nulls
                 for quarter in range(4):
-                    datarow.append(0)
+                    datarow.append("null")
         data.append(datarow)
 
 # Create the array (with times as rows)
@@ -81,7 +81,7 @@ if TIME_ROWS:
 
     data.append(datarow)
 
-    # First column is a time, the rest should be zeros
+    # First column is a time, the rest should be nulls
     # Lots of repitition here, sad!
     for hour in range(24):
         for hourpart in range(4):
@@ -89,22 +89,22 @@ if TIME_ROWS:
                 datarow = [str(hour).zfill(2) + ":00"]
                 for day in days:
                     if day != "report_datetime":
-                        datarow.append("0")
+                        datarow.append("null")
             if hourpart == 1:
                 datarow = [str(hour).zfill(2) + ":15"]
                 for day in days:
                     if day != "report_datetime":
-                        datarow.append("0")
+                        datarow.append("null")
             if hourpart == 2:
                 datarow = [str(hour).zfill(2) + ":30"]
                 for day in days:
                     if day != "report_datetime":
-                        datarow.append("0")
+                        datarow.append("null")
             if hourpart == 3:
                 datarow = [str(hour).zfill(2) + ":45"]
                 for day in days:
                     if day != "report_datetime":
-                        datarow.append("0")
+                        datarow.append("null")
             data.append(datarow)
 
 log_data.seek(0,0)
